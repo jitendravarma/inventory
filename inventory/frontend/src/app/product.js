@@ -60,7 +60,7 @@ class ProductPage extends React.Component {
         if (data.header.status == 1) {
             notify(data.body.msg)
             this.setState({
-                products: data.body.data,
+                products: data.body.products,
             })
         } else {
             notify(data.errors.errorList[0]['field_error'], 'error')

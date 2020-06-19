@@ -20,7 +20,7 @@ class Product(models.Model):
     """
     name = models.CharField(max_length=50, blank=False, null=False)
     price = models.FloatField(max_length=50, blank=False, null=False)
-    company = models.OneToOneField("Company", on_delete=models.CASCADE)
+    company = models.ForeignKey("Company", on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name}, {self.gst_no}"
