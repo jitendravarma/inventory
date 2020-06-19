@@ -5,6 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 
+from django.shortcuts import get_object_or_404
+
 from core.models import Company, Product, PurchaseOrder
 
 from .serializers import (CompanySerializer, ProductSerializer,
@@ -63,6 +65,18 @@ class CompanyAPIView(APIView):
             return Response(
                 create_serializer_error_response(serializer.errors),
                 status=403)
+
+
+class GetProductsAPIView(APIView):
+    serializer_class = ProductSerializer
+    permission_classes = (AllowAny,)
+
+    def get(self, request, *args, **kwargs):
+        company_id = self.kwargs['pk']
+        company = get_object_or_404(Company, id=company_id)
+        products = Product.objects.filter(company=company)
+        source = ProductListSerializer(products, many=True)
+        return Response(create_response({"results": source.data, }))
 
 
 class ProductAPIView(APIView):

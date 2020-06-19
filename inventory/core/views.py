@@ -1,6 +1,6 @@
 from django.http import FileResponse
+from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, View
-from django.shortcuts import render, get_object_or_404
 
 from .models import PurchaseOrder
 
@@ -57,7 +57,7 @@ class DownloadInvoiceView(View):
                 'no': po.order_number, 'quantity': po.quantity, 'price': po.product.price}
         print(data)
         invoice_path = generate_invoice_pdf(data)
-        pdf_file = open(invoice_path)
+        pdf_file = open(invoice_path, 'rb')
         response = FileResponse(pdf_file, content_type="application/pdf")
         response["Content-Disposition"] = "attachment; filename=invoice.pdf"
         return response

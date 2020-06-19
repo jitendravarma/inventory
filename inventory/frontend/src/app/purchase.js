@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import { getRequest, postRequest, getHeaders, postHeaders, notify } from '../utils/Utils';
 import { Button, Form, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-import { PURCHASE_API, DOWNLOAD_PDF } from '../utils/constants'
+import { PURCHASE_API, DOWNLOAD_PDF, PRODUCT_API } from '../utils/constants'
 
 class PurchasePage extends React.Component {
     constructor(props) {
@@ -101,12 +101,27 @@ class PurchasePage extends React.Component {
         this.setState({ invoiceModal: !this.state.invoiceModal })
     }
 
+    getProducts = () => {
+        var URL = PRODUCT_API + this.state.companyId;
+        console.log(URL);
+        getRequest(URL, this.setProducts, getHeaders);
+    }
+
+    setProducts = (data) => {
+        if (data) {
+            this.setState({
+                products: data.body.results,
+            })
+        }
+    }
+
     // handle dropdown change
     handleDDChange = (e) => {
         var state = this.state;
         state.companyName = e.label;
         state.companyId = e.value;
         this.setState(state);
+        this.getProducts();
     }
 
     handleProductDDChange = (e) => {
