@@ -54,8 +54,8 @@ class DownloadInvoiceView(View):
         # po = get_object_or_404(PurchaseOrder, id=self.kwargs['pk'])
         po = PurchaseOrder.objects.first()
         data = {'name': po.product.name, 'company': po.company.name,
-                'no': po.order_number, 'quantity': po.quantity, 'price': po.product.price}
-        print(data)
+                'no': po.order_number, 'quantity': po.quantity,
+                'price': po.product.price, 'rate': po.quantity * po.price}
         invoice_path = generate_invoice_pdf(data)
         pdf_file = open(invoice_path, 'rb')
         response = FileResponse(pdf_file, content_type="application/pdf")

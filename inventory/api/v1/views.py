@@ -120,11 +120,10 @@ class PurchaseAPIView(APIView):
 
     def get(self, request):
         purchase = PurchaseOrderSerializer(PurchaseOrder.objects.all().order_by('-id'), many=True)
-        products = ProductListSerializer(Product.objects.all(), many=True)
         companies = CompanySerializer(Company.objects.all().order_by('-id'), many=True)
         return Response(create_response({
-            "purchases": purchase.data,
-            'products': products.data,  'companies': companies.data, }))
+            "purchases": purchase.data, 'products': [],
+            'companies': companies.data, }))
 
     def post(self, request, *args, **kwargs):
         serializer = POSerializer(data=request.data)

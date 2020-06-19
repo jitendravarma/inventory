@@ -134,10 +134,9 @@ class PurchasePage extends React.Component {
 
     handleDownload = (e) => {
         var URL = DOWNLOAD_PDF + this.state.last_id
-        getRequest(URL, this.doNothing, getHeaders);
+        window.location.href = URL;
     }
 
-    doNothing = (data) => { }
 
     render() {
         var table = "";
@@ -220,18 +219,18 @@ class PurchasePage extends React.Component {
                         </center>
                         <Form>
                             <div className="form-group">
-                                <label >Product</label>
-                                <Select refs="adgroup" name="product"
-                                    value={{ value: this.state.productId, label: this.state.productName }}
-                                    onChange={(e) => this.handleProductDDChange(e)}
-                                    options={products_dd} />
-                            </div>
-                            <div className="form-group">
                                 <label>Company</label>
                                 <Select refs="adgroup" name="company"
                                     value={{ value: this.state.companyId, label: this.state.companyName }}
                                     onChange={(e) => this.handleDDChange(e)}
                                     options={company_dd} />
+                            </div>
+                            <div className="form-group">
+                                <label >Product</label>
+                                <Select refs="adgroup" name="product"
+                                    value={{ value: this.state.productId, label: this.state.productName }}
+                                    onChange={(e) => this.handleProductDDChange(e)}
+                                    options={products_dd} />
                             </div>
                             <div className="form-group">
                                 <label>Quantity</label>
