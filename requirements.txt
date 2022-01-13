@@ -11,7 +11,7 @@ djangorestframework==3.11.0
 ecdsa==0.15
 html5lib==1.0.1
 idna==2.9
-Pillow==7.1.2
+Pillow==9.0.0
 pyasn1==0.4.8
 pycparser==2.20
 Pyphen==0.9.5
